@@ -269,10 +269,16 @@ function wsSetup() {
     };
     socket.onmessage = function(msg) {  
         try {
-            console.log("socket.onmessage")
+            // console.log("socket.onmessage")
             debug("WebSocket Recv:" + msg.data);
             //XXX: TODO What are you going to do here?
             var message = JSON.parse(msg.data);
+            // console.log(message);
+            for (var entity in message) {
+                var msgEntity = message[entity]; //data from addEntity
+                world[entity] = msgEntity;
+            }
+            drawNextFrame();   
         } catch (e) {
             alert("socket on message: " + e);
         }
